@@ -10,23 +10,20 @@ This project is a simple web-based chatbot designed to answer frequently asked q
 
 ## Project Structure
 chatbot-flask-project/
-│
-├── app.py                   # Main Flask application
-├── requirements.txt         # Python dependencies
-├── README.md                # Project documentation
-│
-├── data/
-│   └── faq.json             # List of question-answer pairs
-│
-├── templates/
-│   └── index.html           # Web interface (UI)
-│
-└── static/                  # CSS, JS, and other static assets
-    ├── style.css
-    └── script.js
+
+app.py                   # Main Flask application
+requirements.txt         # Python dependencies
+ README.md                # Project documentation
+ data/
+ faq.json             # List of question-answer pairs
+ templates/
+ index.html           # Web interface (UI)
+ static/                  # CSS, JS, and other static assets
+    style.css
+     script.js
 
 
-## 🛠️ Built With
+##  Built With
 
 - Python 3
 - Flask
