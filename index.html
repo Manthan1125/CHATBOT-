@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MANU'S CHAT BOT</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #f6f1f2;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .chatbox {
+      max-width: 400px;
+      margin: 50px auto;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      background: white;
+    }
+    .chat-header {
+      background: linear-gradient(135deg, #3f87a6, #ebf8e1); /* blue-green gradient */
+      color: white;
+      padding: 15px;
+      position: relative;
+    }
+    .chat-header img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+    .chat-body {
+      height: 300px;
+      overflow-y: auto;
+      padding: 15px;
+    }
+    .chat-msg {
+      margin-bottom: 10px;
+    }
+    .chat-msg.user {
+      text-align: right;
+      color: #0d8dfd;
+    }
+    .chat-msg.bot {
+      text-align: left;
+      color: #333;
+    }
+    .chat-footer {
+      padding: 10px;
+      border-top: 1px solid #ddd;
+      display: flex;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="chatbox">
+  <div class="chat-header d-flex align-items-center">
+    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712107.png" alt="Robot Avatar">
+    <div>
+      <h5 class="mb-0">MANU'S CHAT BOT</h5>
+      <small>We reply immediately.</small>
+    </div>
+  </div>
+  <div class="chat-body" id="chat-body">
+    <!-- Messages will appear here -->
+  </div>
+  <div class="chat-footer">
+    <input type="text" id="userInput" class="form-control" placeholder="Type your question..." />
+    <button onclick="sendMessage()" class="btn btn-primary">Send</button>
+  </div>
+</div>
+
+<script>
+  function sendMessage() {
+    let userText = document.getElementById("userInput").value.trim();
+    if (!userText) return;
+
+    let chatBody = document.getElementById("chat-body");
+    chatBody.innerHTML += `<div class="chat-msg user">${userText}</div>`;
+
+    fetch('/get', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: 'msg=' + encodeURIComponent(userText)
+    })
+    .then(res => res.text())
+    .then(reply => {
+      chatBody.innerHTML += `<div class="chat-msg bot">${reply}</div>`;
+      document.getElementById("userInput").value = '';
+      chatBody.scrollTop = chatBody.scrollHeight;
+    });
+  }
+</script>
+
+</body>
+</html>
